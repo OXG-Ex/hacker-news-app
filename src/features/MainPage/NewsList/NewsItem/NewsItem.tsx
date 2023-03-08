@@ -1,6 +1,6 @@
 import { Card, CardHeader, Avatar, CardContent, Typography, CardActions, Badge, Tooltip } from "@mui/material";
 import CommentIcon from '@mui/icons-material/Comment';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import StarRateIcon from '@mui/icons-material/StarRate';
 import { useMemo } from "react";
 import { NewsModel } from "../../../../models/NewsModel";
 
@@ -13,7 +13,7 @@ const NewsItem: React.FC<NewsItemProps> = ({ news }) => {
     return <Card elevation={8} sx={{ width: "100%" }}>
         <CardHeader
             avatar={
-                <Avatar >
+                <Avatar sx={{ bgcolor: "primary.main" }} >
                     {news.by[0]}
                 </Avatar>
             }
@@ -29,7 +29,7 @@ const NewsItem: React.FC<NewsItemProps> = ({ news }) => {
         <CardActions sx={{ flexDirection: "row-reverse", gap: "15px", paddingRight: "20px" }}>
             <Tooltip title="Score">
                 <Badge badgeContent={news.score} color="secondary" showZero>
-                    <ThumbUpIcon color="action" />
+                    <StarRateIcon color="action" />
                 </Badge>
             </Tooltip>
             <Tooltip title="Comments">

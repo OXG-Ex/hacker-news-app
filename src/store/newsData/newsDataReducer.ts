@@ -9,6 +9,7 @@ const weeklyDataSlice = createSlice({
     initialState: initialNewsState,
     reducers: {
         setNews: (state, action: PayloadAction<NewsModel[]>) => {
+            action.payload.sort((a, b) => b.time - a.time);
             state.news = action.payload;
         },
         setIsLoading: (state, action: PayloadAction<boolean>) => {
