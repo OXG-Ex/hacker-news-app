@@ -1,4 +1,4 @@
-export type NewsModel = {
+export type ApiItemModel = {
     id: number,
     by: string, //Author
     descendants: number,
@@ -6,7 +6,7 @@ export type NewsModel = {
     score: number,
     time: number, //Date in Unix format
     title: string,
-    type: "story",
+    type: string,
     url: string,
     text?: string;
 };

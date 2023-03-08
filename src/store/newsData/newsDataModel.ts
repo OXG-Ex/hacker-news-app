@@ -1,6 +1,7 @@
-import { NewsModel } from "../../models/NewsModel";
+import { ApiItemModel } from "../../models/ApiItemModel";
 
 export const initialNewsState = {
-    news: [] as NewsModel[],
-    isLoading: true
+    posts: [] as ApiItemModel[],
+    isLoading: false,
+    comments: [] as ApiItemModel[],
 };

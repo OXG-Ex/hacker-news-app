@@ -1,4 +1,4 @@
 export const routes = {
     root: "/",
-    news: "news"
+    post: "post/:postId"
 };

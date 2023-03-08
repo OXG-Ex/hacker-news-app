@@ -1,30 +1,41 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { NewsModel } from "../../models/NewsModel";
+import { ApiItemModel } from "../../models/ApiItemModel";
 import { RootStoreType } from "../rootReducer";
 import { initialNewsState } from "./newsDataModel";
 
-const weeklyDataSlice = createSlice({
+const newsDataSlice = createSlice({
     name: 'newsData',
     initialState: initialNewsState,
     reducers: {
-        setNews: (state, action: PayloadAction<NewsModel[]>) => {
+        setPosts: (state, action: PayloadAction<ApiItemModel[]>) => {
             action.payload.sort((a, b) => b.time - a.time);
-            state.news = action.payload;
+            state.posts = action.payload;
         },
         setIsLoading: (state, action: PayloadAction<boolean>) => {
             state.isLoading = action.payload;
-        }
+        },
+        pushComments: (state, action: PayloadAction<ApiItemModel[]>) => {
+            state.comments = [...state.comments, ...action.payload];
+        },
+        cleanComments: (state) => {
+            state.comments = [];
+        },
     }
 });
 
 export const {
-    setNews,
-    setIsLoading
-} = weeklyDataSlice.actions;
+    setPosts,
+    setIsLoading,
+    pushComments,
+    cleanComments
+} = newsDataSlice.actions;
 
 //selectors
-export const getNews = (store: RootStoreType): NewsModel[] => store.newsData.news;
+export const getPosts = (store: RootStoreType): ApiItemModel[] => store.newsData.posts;
 export const getIsLoading = (store: RootStoreType): boolean => store.newsData.isLoading;
+export const getComments = (store: RootStoreType): ApiItemModel[] => store.newsData.comments;
 
-export default weeklyDataSlice.reducer;
+export const getPostById = (postId: number) => createSelector(getPosts, (posts) => posts.find(x => x.id === postId));
+
+export default newsDataSlice.reducer;

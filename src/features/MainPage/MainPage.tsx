@@ -1,32 +1,29 @@
-import { Container, Fab, Snackbar } from "@mui/material";
+import { Container } from "@mui/material";
 import { useCallback, useEffect } from "react";
-import UpdateIcon from '@mui/icons-material/Update';
 import { loadNews } from "../../sagas/newsSagaActions";
-import { useAppDispatch } from "../../store/hooks";
-import NewsList from "./NewsList/NewsList";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { getPosts } from "../../store/newsData/newsDataReducer";
+import PostsList from "./PostsList/PostsList";
+import ReloadButton from "./ReloadButton/ReloadButton";
 
 export const MainPage: React.FC = () => {
     const dispatch = useAppDispatch();
 
+    const posts = useAppSelector(getPosts);
+
     const updateNews = useCallback(() => dispatch(loadNews()), [dispatch]);
 
     useEffect(() => {
-        updateNews();
-        const interval = setInterval(updateNews, 60000);
-        return () => clearInterval(interval);
-    }, [dispatch, updateNews]);
+        if (!posts.length) {
+            updateNews();
+        }
+        // const interval = setInterval(updateNews, 60000);
+        // return () => clearInterval(interval);
+    }, [dispatch, posts, updateNews]);
 
 
     return <Container sx={{ paddingTop: "20px" }}>
-        <Snackbar
-            anchorOrigin={{ horizontal: "right", vertical: "top" }}
-            open={true}
-            transitionDuration={1000}
-        >
-            <Fab color="primary" aria-label="Update news" onClick={updateNews}>
-                <UpdateIcon />
-            </Fab>
-        </Snackbar>
-        <NewsList />
+        <ReloadButton onClick={updateNews} />
+        <PostsList />
     </Container>;
 };

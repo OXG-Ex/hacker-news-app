@@ -1,7 +1,7 @@
 import { Paper, CircularProgress, Snackbar, Stack, Typography } from "@mui/material";
 import React from "react";
-import { useAppSelector } from "../../store/hooks";
-import { getIsLoading } from "../../store/newsData/newsDataReducer";
+import { useAppSelector } from "../../../store/hooks";
+import { getIsLoading } from "../../../store/newsData/newsDataReducer";
 
 export type PreloaderProps = {
     text?: string;
