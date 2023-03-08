@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { NewsModel } from "../models/NewsModel";
-import { setNews } from "../store/newsData/newsDataReducer";
+import { setIsLoading, setNews } from "../store/newsData/newsDataReducer";
 
 import { loadNews } from "./newsSagaActions";
 
@@ -12,8 +12,8 @@ const newsApiFetch = () => fetch('https://hacker-news.firebaseio.com/v0/newstori
 
 function* watchLoadingNews(): Generator {
     try {
+        yield put(setIsLoading(true));
         const response = (yield call(newsApiFetch)) as number[];
-
 
         const promises = response.slice(0, 100).map(async (id: number) => {
             const newsResponse = await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`);
@@ -21,7 +21,9 @@ function* watchLoadingNews(): Generator {
         });
 
         const news = (yield all(promises)) as NewsModel[];
+        console.log(news);
         yield put(setNews(news));
+        yield put(setIsLoading(false));
     }
     catch (error) {
     }

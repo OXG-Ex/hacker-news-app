@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import './index.scss';
 import { store } from './store/rootStore';
 import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material';
+import { themeOptions } from './common/themeOptions';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
@@ -13,7 +15,9 @@ const root = createRoot(container);
 root.render(
     <BrowserRouter>
         <Provider store={store}>
-            <App />
+            <ThemeProvider theme={themeOptions}>
+                <App />
+            </ThemeProvider>
         </Provider>
     </BrowserRouter>
 );
