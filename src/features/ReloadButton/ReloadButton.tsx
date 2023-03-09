@@ -1,7 +1,7 @@
 import { Snackbar, Tooltip, Fab } from "@mui/material";
 import UpdateIcon from '@mui/icons-material/Update';
-import { useAppSelector } from "../../../store/hooks";
-import { getIsLoading } from "../../../store/newsData/newsDataReducer";
+import { useAppSelector } from "../../store/hooks";
+import { getIsLoading } from "../../store/newsData/newsDataReducer";
 
 export type ReloadButtonProps = {
     onClick: () => void;

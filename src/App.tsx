@@ -7,7 +7,7 @@ const App = () => {
     return (
         <div className="App">
             <ParticlesBackground />
-            <Preloader text="Loading news..." />
+            <Preloader text="Loading..." />
             <Router />
         </div>
     );

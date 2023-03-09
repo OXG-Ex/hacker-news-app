@@ -10,7 +10,7 @@ export type PreloaderProps = {
 export const Preloader: React.FC<PreloaderProps> = ({ text }) => {
     const isNewsLoading = useAppSelector(getIsLoading);
 
-    return <Snackbar open={isNewsLoading} transitionDuration={1000} anchorOrigin={{ horizontal: "center", vertical: "top" }} >
+    return <Snackbar open={isNewsLoading} transitionDuration={300} anchorOrigin={{ horizontal: "center", vertical: "top" }} >
         <Paper sx={{ padding: "10px" }}>
             <Stack direction={"row"} gap={"10px"}>
                 <CircularProgress size={32} />

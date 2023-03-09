@@ -21,7 +21,13 @@ code {
 }
 
 a {
-    &:link, &:visited, &:hover, &:active{
+    &:link, &:visited{
         color: rgba(58, 234, 149, 0.76);
+    }
+    &:hover{
+        color: rgba(97, 238, 170, 0.76);
+    }
+    &:active{
+       color: rgba(40, 163, 104, 0.76);
     }
 }

@@ -1,4 +1,5 @@
 import { Avatar, Typography, CardHeader, Box, Link } from '@mui/material';
+import { sanitize } from 'dompurify';
 import React, { useCallback, useState } from 'react';
 import { ApiItemModel } from '../../../../models/ApiItemModel';
 import { loadChildComments } from '../../../../sagas/newsSagaActions';
@@ -18,7 +19,7 @@ const Comment: React.FC<CommentProps> = ({ comment, level }) => {
     const comments = useAppSelector(getChildComments);
 
     const handleShowReplies = useCallback(() => {
-        dispatch(loadChildComments(comment?.id));//TODO: Optimize to not make call for each open/close
+        dispatch(loadChildComments(comment?.id));
         setShowReplies(!showReplies);
     }, [comment?.id, dispatch, showReplies]);
 
@@ -37,12 +38,18 @@ const Comment: React.FC<CommentProps> = ({ comment, level }) => {
                 }
                 title={by}
             />
-            <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: text }} sx={{ pr: "10px" }} />
+            <Typography
+                variant="body2"
+                color="text.secondary"
+                //Use dompurify to clean comment text from dangerous HTML (XSS attacks and so on)
+                dangerouslySetInnerHTML={{ __html: sanitize(text) }}
+                sx={{ pr: "10px" }} />
             {kids && (
                 <Link onClick={handleShowReplies} sx={{ cursor: "pointer" }}>{!showReplies ? `Show ${kids.length} replie(s)` : "Hide replie(s)"}</Link>
             )}
             {showReplies &&
                 kids.map((kidId) => (
+                    //Recursively showing of comments
                     <Comment key={kidId} comment={comments.find((c) => c.id === kidId) as ApiItemModel} level={level + 1} />
                 ))}
         </Box>

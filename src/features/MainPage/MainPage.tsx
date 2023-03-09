@@ -2,9 +2,9 @@ import { Container } from "@mui/material";
 import { useCallback, useEffect } from "react";
 import { loadPosts } from "../../sagas/newsSagaActions";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { getPosts } from "../../store/newsData/newsDataReducer";
+import { clearSelectedPost, getPosts } from "../../store/newsData/newsDataReducer";
 import PostsList from "./PostsList/PostsList";
-import ReloadButton from "./ReloadButton/ReloadButton";
+import ReloadButton from "../ReloadButton/ReloadButton";
 
 export const MainPage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -14,6 +14,7 @@ export const MainPage: React.FC = () => {
     const updateNews = useCallback(() => dispatch(loadPosts()), [dispatch]);
 
     useEffect(() => {
+        dispatch(clearSelectedPost());
         if (!posts.length) {
             updateNews();
         }
