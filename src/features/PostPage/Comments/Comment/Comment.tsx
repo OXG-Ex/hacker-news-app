@@ -1,9 +1,10 @@
-import { ExpandMore } from '@mui/icons-material';
-import { Avatar, Typography, IconButton } from '@mui/material';
-import React, { useState } from 'react';
+import { Avatar, Typography, CardHeader, Box, Link } from '@mui/material';
+import React, { useCallback, useState } from 'react';
 import { ApiItemModel } from '../../../../models/ApiItemModel';
-import { useAppSelector } from '../../../../store/hooks';
-import { getComments } from '../../../../store/newsData/newsDataReducer';
+import { loadChildComments } from '../../../../sagas/newsSagaActions';
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
+import { getChildComments } from '../../../../store/newsData/newsDataReducer';
+import { CommentSkelleton } from './CommentSkelleton';
 
 export type CommentProps = {
     comment: ApiItemModel;
@@ -11,29 +12,40 @@ export type CommentProps = {
 };
 
 const Comment: React.FC<CommentProps> = ({ comment, level }) => {
+    const dispatch = useAppDispatch();
     const [showReplies, setShowReplies] = useState(false);
-    const { by, text, kids } = comment;
-    const comments = useAppSelector(getComments);
 
-    const handleShowReplies = () => {
+    const comments = useAppSelector(getChildComments);
+
+    const handleShowReplies = useCallback(() => {
+        dispatch(loadChildComments(comment?.id));//TODO: Optimize to not make call for each open/close
         setShowReplies(!showReplies);
-    };
+    }, [comment?.id, dispatch, showReplies]);
+
+    if (!comment) {
+        return <CommentSkelleton />;
+    }
+    const { by, text, kids } = comment;
 
     return (
-        <div style={{ marginLeft: `${10 * level}px` }}>
-            <Avatar>{by[0]}</Avatar>
-            <Typography>{by}</Typography>
-            <Typography>{text}</Typography>
+        <Box sx={{ pl: '30px', mt: '10px', width: "fill-available", borderLeft: level > 0 ? "1px solid" : undefined, borderLeftColor: "primary.main" }}>
+            <CardHeader
+                avatar={
+                    <Avatar sx={{ bgcolor: "primary.main" }} >
+                        {by[0]}
+                    </Avatar>
+                }
+                title={by}
+            />
+            <Typography variant="body2" color="text.secondary" dangerouslySetInnerHTML={{ __html: text }} sx={{ pr: "10px" }} />
             {kids && (
-                <IconButton onClick={handleShowReplies}>
-                    <ExpandMore />
-                </IconButton>
+                <Link onClick={handleShowReplies} sx={{ cursor: "pointer" }}>{!showReplies ? `Show ${kids.length} replie(s)` : "Hide replie(s)"}</Link>
             )}
             {showReplies &&
                 kids.map((kidId) => (
                     <Comment key={kidId} comment={comments.find((c) => c.id === kidId) as ApiItemModel} level={level + 1} />
                 ))}
-        </div>
+        </Box>
     );
 };
 

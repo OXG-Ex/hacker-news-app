@@ -1,12 +1,14 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { all, call, put, select, takeLatest } from "redux-saga/effects";
 import { ApiItemModel } from "../models/ApiItemModel";
-import { getPostById, pushComments, setIsLoading, setPosts } from "../store/newsData/newsDataReducer";
-import { loadComments, loadNews } from "./newsSagaActions";
+import { getPostById, setTopLevelComments, setIsLoading, setPosts, pushChildComments } from "../store/newsData/newsDataReducer";
+import { loadTopLevelComments, loadPosts, loadChildComments } from "./newsSagaActions";
+import { LoadChildCommentsActionType, LoadTopLevelCommentsActionType } from "./newsSagaActionTypes";
 
 export const newsSagas = [
-    takeLatest(loadNews, watchLoadingNews),
-    takeLatest(loadComments, watchLoadingComments),
+    takeLatest(loadPosts, watchLoadingNews),
+    takeLatest(loadTopLevelComments, watchLoadingComments),
+    takeLatest(loadChildComments, watchLoadingComments),
 ];
 
 const newsApiFetch = (): Promise<ApiItemModel[]> => fetch('https://hacker-news.firebaseio.com/v0/newstories.json').then(res => res.json());
@@ -30,11 +32,23 @@ function* watchLoadingNews(): Generator {
 
 function* watchLoadingComments(action: PayloadAction<number>): Generator {
     try {
-        const item = (yield select(getPostById(action.payload))) as ApiItemModel || itemsApiFetch(action.payload);
+        let item = (yield (select(getPostById(action.payload)))) as ApiItemModel;
+        if (!item) {
+            item = (yield call(itemsApiFetch, action.payload)) as ApiItemModel;
+        }
+
         const commentIds = item.kids;
         const comments = (yield all(commentIds.map((commentId) => call(itemsApiFetch, commentId)))) as ApiItemModel[];
 
-        yield put(pushComments(comments));
+        switch (action.type) {
+            case LoadTopLevelCommentsActionType:
+                yield put(setTopLevelComments(comments));
+                break;
+            case LoadChildCommentsActionType:
+                yield put(pushChildComments(comments));
+                break;
+        }
+
     }
     catch (error) {
         //TODO: Error handling

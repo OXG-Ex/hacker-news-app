@@ -1,4 +1,6 @@
 import { createAction } from "@reduxjs/toolkit";
+import { LoadChildCommentsActionType, LoadPostsActionType, LoadTopLevelCommentsActionType } from "./newsSagaActionTypes";
 
-export const loadNews = createAction('LOAD_TOP_NEWS');
-export const loadComments = createAction<number>('LOAD_COMMENTS');
+export const loadPosts = createAction(LoadPostsActionType);
+export const loadTopLevelComments = createAction<number>(LoadTopLevelCommentsActionType);
+export const loadChildComments = createAction<number>(LoadChildCommentsActionType);

@@ -1,16 +1,24 @@
+import { Card, Stack } from '@mui/material';
 import { useAppSelector } from '../../../store/hooks';
-import { getComments } from '../../../store/newsData/newsDataReducer';
+import { getTopLevelComments } from '../../../store/newsData/newsDataReducer';
 import Comment from './Comment/Comment';
 
 const Comments = () => {
-    const comments = useAppSelector(getComments);
+    const comments = useAppSelector(getTopLevelComments);
 
     return (
-        <div>
-            {comments.map((comment) => (
-                <Comment key={comment.id} comment={comment} level={1} />
-            ))}
-        </div>
+        <Card>
+            <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                spacing={2}>
+                {comments.map((comment) => (
+                    <Comment key={comment.id} comment={comment} level={0} />
+                ))}
+            </Stack>
+
+        </Card>
     );
 };
 

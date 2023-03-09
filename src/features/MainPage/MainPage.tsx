@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
 import { useCallback, useEffect } from "react";
-import { loadNews } from "../../sagas/newsSagaActions";
+import { loadPosts } from "../../sagas/newsSagaActions";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { getPosts } from "../../store/newsData/newsDataReducer";
 import PostsList from "./PostsList/PostsList";
@@ -11,7 +11,7 @@ export const MainPage: React.FC = () => {
 
     const posts = useAppSelector(getPosts);
 
-    const updateNews = useCallback(() => dispatch(loadNews()), [dispatch]);
+    const updateNews = useCallback(() => dispatch(loadPosts()), [dispatch]);
 
     useEffect(() => {
         if (!posts.length) {

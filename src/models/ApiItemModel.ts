@@ -8,5 +8,5 @@ export type ApiItemModel = {
     title: string,
     type: string,
     url: string,
-    text?: string;
+    text: string;
 };
