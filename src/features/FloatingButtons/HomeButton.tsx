@@ -9,7 +9,7 @@ const HomeButton: React.FC = () => {
     const onClick = useCallback(() => navigate(routes.root), [navigate]);
 
     return <Tooltip title="Go to main page">
-        <Fab color="primary" aria-label="Update news" onClick={onClick} sx={{ position: "absolute", top: 88, right: 16 }}>
+        <Fab color="primary" aria-label="Update news" onClick={onClick} sx={{ position: "fixed", top: 88, right: 16 }}>
             <HomeIcon />
         </Fab>
     </Tooltip>;

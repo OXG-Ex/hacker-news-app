@@ -18,12 +18,12 @@ export const MainPage: React.FC = () => {
         if (!posts.length) {
             updateNews();
         }
-        // const interval = setInterval(updateNews, 60000);
-        // return () => clearInterval(interval);
+        const interval = setInterval(updateNews, 60000);
+        return () => clearInterval(interval);
     }, [dispatch, posts, updateNews]);
 
 
-    return <Container sx={{ paddingTop: "20px" }}>
+    return <Container>
         <ReloadButton onClick={updateNews} />
         <PostsList />
     </Container>;

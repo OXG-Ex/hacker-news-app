@@ -18,7 +18,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, isPostsPage }) => {
 
     const openPost = useCallback(() => navigate(routes.post.replace(":postId", post.id.toString())), [navigate, post.id]);
 
-    return <Card elevation={8} sx={{ width: "100%" }} >
+    return <Card elevation={8} sx={{ width: "calc(100% - 17px)", mb: "20px" }} >
         <CardHeader
             avatar={
                 <Avatar sx={{ bgcolor: "primary.main" }} >

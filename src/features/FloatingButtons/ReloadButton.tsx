@@ -11,7 +11,7 @@ const ReloadButton: React.FC<ReloadButtonProps> = ({ onClick }) => {
     const isNewsLoading = useAppSelector(getIsLoading);
 
     return <Tooltip title="Update news">
-        <Fab color="primary" aria-label="Update news" onClick={onClick} sx={{ position: "absolute", top: 16, right: 16 }} hidden={!isNewsLoading}>
+        <Fab color="primary" aria-label="Update news" onClick={onClick} sx={{ position: "fixed", top: 16, right: 16 }} hidden={!isNewsLoading}>
             <UpdateIcon />
         </Fab>
     </Tooltip>;
