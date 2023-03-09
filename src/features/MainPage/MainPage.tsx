@@ -4,7 +4,7 @@ import { loadPosts } from "../../sagas/newsSagaActions";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { clearSelectedPost, getPosts } from "../../store/newsData/newsDataReducer";
 import PostsList from "./PostsList/PostsList";
-import ReloadButton from "../ReloadButton/ReloadButton";
+import ReloadButton from "../FloatingButtons/ReloadButton";
 
 export const MainPage: React.FC = () => {
     const dispatch = useAppDispatch();

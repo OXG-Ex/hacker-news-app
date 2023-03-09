@@ -61,7 +61,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, isPostsPage }) => {
             </Tooltip>
 
             {isPostsPage
-                && <Link underline="hover" sx={{ cursor: "pointer" }} rel="noreferrer" target="_blank" href={post.url + "222"}>
+                && <Link underline="hover" sx={{ cursor: "pointer" }} rel="noreferrer" target="_blank" href={post.url}>
                     Open original post
                 </Link>}
 

@@ -5,8 +5,9 @@ import { loadPostById, loadTopLevelComments } from "../../sagas/newsSagaActions"
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { cleanComments, getSelectedPost } from "../../store/newsData/newsDataReducer";
 import PostItem from "../MainPage/PostsList/PostItem/PostItem";
-import ReloadButton from "../ReloadButton/ReloadButton";
+import ReloadButton from "../FloatingButtons/ReloadButton";
 import Comments from "./Comments/Comments";
+import HomeButton from "../FloatingButtons/HomeButton";
 
 const PostPage = () => {
     const dispatch = useAppDispatch();
@@ -36,7 +37,7 @@ const PostPage = () => {
             <PostItem post={post} isPostsPage={true} />
             {post?.kids?.length && <Comments />}
         </Stack>
-
+        <HomeButton />
         <ReloadButton onClick={updateComments} />
     </Container>;
 };
