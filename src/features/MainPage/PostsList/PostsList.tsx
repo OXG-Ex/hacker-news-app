@@ -16,7 +16,7 @@ const PostsList = () => {
         spacing={2}
         ref={ref}
     >
-        {posts?.length && <Typography variant="h3" color="primary.main" sx={{ pt: "20px" }}>Last {posts?.length} posts:</Typography>}
+        {!!posts?.length && <Typography variant="h3" color="primary.main" sx={{ pt: "20px" }}>Last {posts?.length} posts:</Typography>}
         {/* Custom designed scrollbar */}
         <Scrollbars style={{ height: "calc(100vh - 92px)" }} color="green" renderThumbVertical={() => <Box sx={{ backgroundColor: "primary.main", borderRadius: 5 }} />}>
             {/* Optimize rendering with  Viewport List*/}
@@ -26,7 +26,6 @@ const PostsList = () => {
                 )}
             </ViewportList>
         </Scrollbars>
-
     </Stack>;
 };
 

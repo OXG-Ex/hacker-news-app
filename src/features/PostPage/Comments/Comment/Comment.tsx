@@ -26,24 +26,34 @@ const Comment: React.FC<CommentProps> = ({ comment, level }) => {
     if (!comment) {
         return <CommentSkelleton />;
     }
-    const { by, text, kids } = comment;
+
+    const { by, text, kids, deleted } = comment;
 
     return (
         <Box sx={{ pl: '30px', mt: '10px', width: "fill-available", borderLeft: level > 0 ? "1px solid" : undefined, borderLeftColor: "primary.main" }}>
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: "primary.main" }} >
-                        {by[0]}
+                        {by?.[0]}
                     </Avatar>
                 }
                 title={by}
+                sx={{ pl: 0 }}
             />
-            <Typography
-                variant="body2"
-                color="text.secondary"
-                //Use dompurify to clean comment text from dangerous HTML (XSS attacks and so on)
-                dangerouslySetInnerHTML={{ __html: sanitize(text) }}
-                sx={{ pr: "10px" }} />
+            {!deleted
+                ? <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    //Use dompurify to clean comment text from dangerous HTML (XSS attacks and so on)
+                    dangerouslySetInnerHTML={{ __html: sanitize(text) }}
+                    sx={{ pr: "10px" }} />
+                : <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ pr: "10px", color: "warning.main" }} >
+                    {"This comment was deleted :("}
+                </Typography>
+            }
             {kids && (
                 <Link onClick={handleShowReplies} sx={{ cursor: "pointer" }}>{!showReplies ? `Show ${kids.length} replie(s)` : "Hide replie(s)"}</Link>
             )}

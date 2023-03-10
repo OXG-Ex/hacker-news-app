@@ -8,7 +8,6 @@ import ReloadButton from "../FloatingButtons/ReloadButton";
 
 export const MainPage: React.FC = () => {
     const dispatch = useAppDispatch();
-
     const posts = useAppSelector(getPosts);
 
     const updateNews = useCallback(() => dispatch(loadPosts()), [dispatch]);

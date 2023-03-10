@@ -30,7 +30,7 @@ function* watchLoadingNews(): Generator {
         yield put(setIsLoading(false));
     }
     catch (error) {
-        //TODO: Error handling
+        console.error(error);
     }
 }
 
@@ -60,7 +60,7 @@ function* watchLoadingComments(action: PayloadAction<number>): Generator {
 
     }
     catch (error) {
-        //TODO: Error handling
+        console.error(error);
     }
 }
 
@@ -73,6 +73,6 @@ function* watchLoadingPost(action: PayloadAction<number>): Generator {
         yield put(setIsLoading(false));
     }
     catch (error) {
-        //TODO: Error handling
+        console.error(error);
     }
 }

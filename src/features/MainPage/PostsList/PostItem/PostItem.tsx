@@ -4,7 +4,7 @@ import StarRateIcon from '@mui/icons-material/StarRate';
 import { useCallback, useMemo } from "react";
 import { ApiItemModel } from "../../../../models/ApiItemModel";
 import { routes } from "../../../router/routes";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { sanitize } from "dompurify";
 
 export type PostItemProps = {
@@ -18,11 +18,15 @@ const PostItem: React.FC<PostItemProps> = ({ post, isPostsPage }) => {
 
     const openPost = useCallback(() => navigate(routes.post.replace(":postId", post.id.toString())), [navigate, post.id]);
 
+    if (post.type !== "story") {
+        return <Navigate to="*" />;
+    }
+
     return <Card elevation={8} sx={{ width: "calc(100% - 17px)", mb: "20px" }} >
         <CardHeader
             avatar={
                 <Avatar sx={{ bgcolor: "primary.main" }} >
-                    {post.by[0]}
+                    {post.by?.[0]}
                 </Avatar>
             }
             title={post.by}

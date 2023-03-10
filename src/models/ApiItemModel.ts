@@ -9,4 +9,5 @@ export type ApiItemModel = {
     type: string,
     url: string,
     text: string;
+    deleted: boolean;
 };
