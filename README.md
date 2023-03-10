@@ -18,8 +18,8 @@ To launch project on your local machine: In the project:
 
 # Описание
 
-Этот проект был создан с помощью [Create React App](https://github.com/facebook/create-react-app), с использованием [Redux](https://redux.js.org/) и [Redux Toolkit]. (https://redux-toolkit.js.org/) Шаблон TS.
-Это приложение загружает и показывает последние 100 постов из [Hacker News](https://news.ycombinator.com/newest).
+Этот проект был создан с помощью [Create React App](https://github.com/facebook/create-react-app), с использованием [Redux](https://redux.js.org/) и [Redux Toolkit](https://redux-toolkit.js.org/) Шаблон TS.
+Это приложение загружает и показывает последние 100 постов с сайта [Hacker News](https://news.ycombinator.com/newest).
 После клика по названию поста пользователь будет перенаправлен на страницу с выбранным постом и комментариями.
 Корневые комментарии загружаются сразу после открытия страницы, дочерние комментарии загружаются после нажатия «Показать ответы».
 
