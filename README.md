@@ -7,7 +7,7 @@ Root comments are loading immediately after opening page, child comments loading
 
 ## Launch of the project
 
-To launch project on your local machine: In the project:
+To launch project on your local machine:
 
 - Clone this repo to your local machine
 - In the project directory run `npm i`
@@ -25,7 +25,7 @@ To launch project on your local machine: In the project:
 
 ## Запуск проекта
 
-Чтобы запустить проект на вашей локальной машине: В проекте:
+Чтобы запустить проект на вашей локальной машине:
 
 - Клонируйте этот репозиторий на свой локальный компьютер.
 - В каталоге проекта запустите `npm i`
