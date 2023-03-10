@@ -44,6 +44,7 @@ function* watchLoadingComments(action: PayloadAction<number>): Generator {
 
         //Get ids of child's
         const commentIds = item.kids;
+        if (!commentIds) return;;
         //Fetch comments from API
         const comments = (yield all(commentIds.map((commentId) => call(itemsApiFetch, commentId)))) as ApiItemModel[];
 
@@ -68,7 +69,6 @@ function* watchLoadingPost(action: PayloadAction<number>): Generator {
     try {
         yield put(setIsLoading(true));
         const item = (yield call(itemsApiFetch, action.payload)) as ApiItemModel;
-        console.log(item);
         yield put(setSelectedPost(item));
         yield put(setIsLoading(false));
     }
