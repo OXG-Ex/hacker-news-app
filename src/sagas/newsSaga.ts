@@ -12,7 +12,7 @@ export const newsSagas = [
     takeLatest(loadPostById, watchLoadingPost),
 ];
 
-const newsApiFetch = (): Promise<ApiItemModel[]> => fetch('https://hacker-news.firebaseio.com/v0/newstories.json').then(res => res.json());
+const newsApiFetch = (): Promise<number[]> => fetch('https://hacker-news.firebaseio.com/v0/newstories.json').then(res => res.json());
 const itemsApiFetch = (itemId: number): Promise<ApiItemModel> => fetch(`https://hacker-news.firebaseio.com/v0/item/${itemId}.json`).then(res => res.json());
 
 function* watchLoadingNews(): Generator {
